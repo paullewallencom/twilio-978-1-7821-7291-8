@@ -1,0 +1,9 @@
+[submodule "provision/puppet/modules/hostname"]
+	path = provision/puppet/modules/hostname
+	url = https://github.com/mkpeacock/puppet-hostname
+[submodule "provision/puppet/modules/beanstalkd"]
+	path = provision/puppet/modules/beanstalkd
+	url = https://mkpeacock@bitbucket.org/mkpeacock/puppet-beanstalkd.git
+[submodule "provision/puppet/modules/supervisor"]
+	path = provision/puppet/modules/supervisor
+	url = https://github.com/plathrop/puppet-module-supervisor.git

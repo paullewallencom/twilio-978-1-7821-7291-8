@@ -1,0 +1,40 @@
+server {
+    listen   80;
+
+    root /var/www/repo/src/public;
+    index index.php index.html index.htm;
+
+    server_name packt-video-series.local;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    error_page 404 /index.php;
+
+    error_page 500 502 503 504 /50x.html;
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #fastcgi_pass 127.0.0.1:9000;
+        fastcgi_param SERVER_NAME $host;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_intercept_errors on;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {
+        access_log off;
+        expires max;
+    }
+
+    location ~* \.svgz {
+        add_header Content-Encoding "gzip";
+    }
+}

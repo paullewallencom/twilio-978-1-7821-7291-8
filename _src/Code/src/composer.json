@@ -1,0 +1,9 @@
+{
+    "require": {
+        "twilio/sdk": "3.12.2",
+        "pusher/pusher-php-server": "dev-master",
+        "symfony/console": "2.4.1",
+        "pda/pheanstalk": "2.1.0",
+        "centralapps/common-console-commands": "1.0"
+    }
+}

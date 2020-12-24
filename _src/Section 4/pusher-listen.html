@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+        <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                var pusher = new Pusher(
+                    'pusher-key-goes-here',
+                    { authEndpoint: '/pusher-auth-callback.php' }
+                );
+
+                var channel = pusher.subscribe('private-packt4');
+
+                channel.bind_all(function (event_name, event_data) {
+                    console.log(event_name);
+                    console.log(event_data);
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Pusher: listen for events</h1>
+    </body>
+</html>

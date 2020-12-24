@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+        <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var numItems = 0;
+                var maxItems = 20;
+
+                var pusher = new Pusher('pusher-key-goes-here', {
+                    authEndpoint: '/pusher-stream-callback.php'
+                });
+
+                var channel = pusher.subscribe('private-stream');
+
+                channel.bind('update', function (event_data) {
+                    var caller = event_data.number;
+                    var avatar = '';
+
+                    if (typeof(event_data.caller) != "undefined") {
+                        caller = event_data.caller.name;
+                        avatar = "<img src='" + event_data.caller.gravatar + "'>";
+                    }
+
+                    var activity = "<div>" +
+                    "<div class='row'>" +
+                    "<div class='col-md-8'>" +
+                    "" + caller + "<br />" + event_data.message + "" +
+                    "</div>" +
+                    "<div class='col-md-4'>" +
+                    "" + avatar + "" +
+                    "</div>" +
+                    "</div>" +
+                    "<hr />" +
+                    "</div>";
+
+                    $('#stream').prepend(activity);
+                    numItems++;
+
+                    if (numItems > maxItems) {
+                        $('#stream').find('div:last-child').fadeOut(function(){
+                            $(this).remove();
+                        });
+
+                        numItems--;
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>IVR Activity Stream</h1>
+            <div id="stream">
+
+            </div>
+        </div>
+
+    </body>
+</html>
